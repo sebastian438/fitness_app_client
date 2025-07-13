@@ -1,0 +1,16 @@
+.mpal {
+    background-color: yellow;
+}
+
+.mpal ul li {
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+.mpal ul li a {
+    text-decoration: none;
+}
+
+.activo {
+    color: red;
+}
