@@ -19,17 +19,24 @@ export const ClasesUpdatePage = () => {
     }, [])
 
     return (
-        <>
-            <h1>Página de Editar clase</h1>
-            {
-                isLoading
-                    ? <h1>CARGANDO</h1>
-                    : data.ok
-                        ? <FormUpdateClase data={data.datos} />
+        <div className="container py-5">
+            <h1 className="h3 text-center mb-4">Página de Editar clase</h1>
 
-                        : <p>{data}</p>
-            }
-
-        </>
-    )
-}
+            {isLoading ? (
+                <div className="text-center py-5">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            ) : data.ok ? (
+                <div className="row justify-content-center">
+                    <div className="col-12 col-md-8 col-lg-6">
+                        <FormUpdateClase data={data.datos} />
+                    </div>
+                </div>
+            ) : (
+                <p className="text-danger text-center">{data}</p>
+            )}
+        </div>
+    );
+};

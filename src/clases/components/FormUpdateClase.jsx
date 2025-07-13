@@ -22,7 +22,7 @@ export const FormUpdateClase = ({ data: datos }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const result = await editClase(formData);     // <-- esperamos la respuesta
+        const result = await editClase(formData);  
         if (result.ok) {
             setTimeout(() => navigate('/admin/clases'), 700);
         }
@@ -30,35 +30,79 @@ export const FormUpdateClase = ({ data: datos }) => {
 
     return (
         <>
-            <h2>Formulario de actualizar clase de {formData.title}</h2>
-            {data?.ok && <p className="exito">{data.datos}</p>}
+            <h2 className="h5 text-center mb-4">
+                Formulario de actualizar clase: {formData.title}
+            </h2>
 
-            {(data && !data.ok) && Object.values(data.datos).map((error, index) => {
-                return <p key={`error${index + 1}`} className="fracaso">
-                    {error.msg}
-                </p>
-            })
+            {data?.ok && (
+                <div className="alert alert-success" role="alert">
+                    {data.datos}
+                </div>
+            )}
 
-            }
+            {data && !data.ok && (
+                <div className="alert alert-danger" role="alert">
+                    {Object.values(data.datos).map((err, i) => (
+                        <div key={i}>• {err.msg}</div>
+                    ))}
+                </div>
+            )}
 
-            <form onSubmit={handleSubmit} noValidate>
-                <h2>Actualizar clase</h2>
-                <input type="text"
-                    placeholder="Nombre de la clase"
-                    value={formData.title}
-                    onChange={handleChange}
-                    name='title' />
-                <input type="text"
-                    placeholder="Descripción de la clase"
-                    value={formData.descripcion}
-                    onChange={handleChange}
-                    name='descripcion' />
-                <input type="number"
-                    placeholder="Capacidad de la clase"
-                    value={formData.capacity}
-                    onChange={handleChange}
-                    name='capacity' />
-                <button type="submit">Actualizar clase</button>
+            <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="border rounded p-4 shadow-sm bg-white"
+            >
+                <div className="mb-3">
+                    <label htmlFor="title" className="form-label">
+                        Nombre de la clase
+                    </label>
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        className="form-control"
+                        placeholder="Nombre de la clase"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="descripcion" className="form-label">
+                        Descripción
+                    </label>
+                    <textarea
+                        id="descripcion"
+                        name="descripcion"
+                        className="form-control"
+                        rows="3"
+                        value={formData.descripcion}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="capacity" className="form-label">
+                        Capacidad
+                    </label>
+                    <input
+                        id="capacity"
+                        name="capacity"
+                        type="number"
+                        className="form-control"
+                        placeholder="Capacidad de la clase"
+                        value={formData.capacity}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <button type="submit" className="btn btn-success w-100">
+                    Actualizar clase
+                </button>
             </form>
         </>
     )

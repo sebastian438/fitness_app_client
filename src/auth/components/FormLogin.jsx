@@ -1,36 +1,55 @@
-import { useFormLogin } from '../hooks/useFormLogin'
+import { useFormLogin } from '../hooks/useFormLogin';
 
 export const FormLogin = () => {
-    const { formData, handleChange, handleSubmit, error, isOk } = useFormLogin()
+    const { formData, handleChange, handleSubmit, error, isOk } = useFormLogin();
 
     return (
-        <>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                <h2>Iniciar Sesión</h2>
-
+        <form
+            onSubmit={handleSubmit}
+            noValidate
+            autoComplete="off"
+            className="border rounded p-4 shadow-sm bg-white"
+        >
+            <div className="mb-3">
+                <label htmlFor="email" className="form-label">Correo electrónico</label>
                 <input
-                    type="email"
+                    id="email"
                     name="email"
-                    placeholder="Correo electrónico"
+                    type="email"
+                    className="form-control"
+                    placeholder="tu@correo.com"
                     value={formData.email}
                     onChange={handleChange}
                     required
                 />
+            </div>
 
+            <div className="mb-4">
+                <label htmlFor="password" className="form-label">Contraseña</label>
                 <input
-                    type="password"
+                    id="password"
                     name="password"
-                    placeholder="Contraseña"
+                    type="password"
+                    className="form-control"
+                    placeholder="********"
                     value={formData.password}
                     onChange={handleChange}
                     required
                 />
+            </div>
 
-                <button type="submit">Entrar</button>
-            </form>
+            <button type="submit" className="btn btn-success w-100">Entrar</button>
 
-            {isOk && <p className="success">{isOk}</p>}
-            {error && <p className="error">{error}</p>}
-        </>
-    )
-}
+            {isOk && (
+                <div className="alert alert-success mt-3" role="alert">
+                    {isOk}
+                </div>
+            )}
+            {error && (
+                <div className="alert alert-danger mt-3" role="alert">
+                    {error}
+                </div>
+            )}
+        </form>
+    );
+};

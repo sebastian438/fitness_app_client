@@ -1,54 +1,85 @@
-import { useState } from "react";
-import { request } from "../../services/api";
-import { useFormRegistro } from "../hooks/useFormRegistro";
+import { useFormRegistro } from '../hooks/useFormRegistro';
 
 export const FormRegistry = () => {
-
-    const { error, formData, handleChange, handleSubmit, isOk } = useFormRegistro()
+    const { error, formData, handleChange, handleSubmit, isOk } = useFormRegistro();
 
     return (
-        <>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                <h2>Registrar Usuario</h2>
+        <form
+            onSubmit={handleSubmit}
+            noValidate
+            autoComplete="off"
+            className="border rounded p-4 shadow-sm bg-white"
+        >
+            <div className="mb-3">
+                <label htmlFor="name" className="form-label">Nombre de usuario</label>
                 <input
+                    id="name"
+                    name="name"
                     type="text"
-                    placeholder="Nombre de usuario"
+                    className="form-control"
+                    placeholder="Tu nombre"
                     value={formData.name}
                     onChange={handleChange}
-                    name='name'
+                    required
                 />
+            </div>
+
+            <div className="mb-3">
+                <label htmlFor="password" className="form-label">Contraseña</label>
                 <input
+                    id="password"
+                    name="password"
                     type="password"
-                    placeholder="Contraseña"
+                    className="form-control"
+                    placeholder="********"
                     value={formData.password}
                     onChange={handleChange}
-                    name='password'
+                    required
                 />
+            </div>
+
+            <div className="mb-3">
+                <label htmlFor="role" className="form-label">Rol</label>
                 <select
+                    id="role"
+                    name="role"
+                    className="form-select"
                     value={formData.role}
                     onChange={handleChange}
-                    name='role'
+                    required
                 >
                     <option value="">Selecciona un rol</option>
                     <option value="2">Admin</option>
                     <option value="3">Usuario</option>
                 </select>
+            </div>
+
+            <div className="mb-4">
+                <label htmlFor="email" className="form-label">Email</label>
                 <input
+                    id="email"
+                    name="email"
                     type="email"
-                    placeholder="Email"
+                    className="form-control"
+                    placeholder="tu@correo.com"
                     value={formData.email}
                     onChange={handleChange}
-                    name='email'
+                    required
                 />
-                <button type="submit">Registrar</button>
-            </form>
+            </div>
 
-            {
-                error && JSON.stringify(error)
-            }
-            {
-                isOk && <p>{isOk}</p>
-            }
-        </>
+            <button type="submit" className="btn btn-success w-100">Registrar</button>
+
+            {isOk && (
+                <div className="alert alert-success mt-3" role="alert">
+                    {isOk}
+                </div>
+            )}
+            {error && (
+                <div className="alert alert-danger mt-3" role="alert">
+                    {JSON.stringify(error)}
+                </div>
+            )}
+        </form>
     );
-}
+};
