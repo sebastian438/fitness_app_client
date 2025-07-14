@@ -12,12 +12,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import App from './App.jsx'
 // Importamos el router de React para controlar la navegación por URL
 import { BrowserRouter } from 'react-router'
+import { UserProvider } from './context/UserProvider.jsx'
 
 // Localiza el <div id="root"> en index.html, que es donde montaremos toda la aplicación React. 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </UserProvider>
   </StrictMode>,
 )

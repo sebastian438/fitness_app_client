@@ -1,13 +1,32 @@
 import { useState } from 'react'
 import { UserContext } from './UserContext'
+import Cookies from 'js-cookie'
+import { request } from '../services/api'
 
-// Al ser un high order component recibe los children como argumento
 export const UserProvider = ({ children }) => {
+    // Arrancamos sin usuario
+    const [user, setUser] = useState({})
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-    const [user, setUser] = useState()
+    const logout = async () => {
+        try {
+            await request('/api/v1/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+        } catch (err) {
+            console.error(err)
+        }
+        // Limpia cookies accesibles
+        Cookies.remove('user_id')
+        Cookies.remove('role')
+        // Limpia contexto
+        setUser({})
+        setIsAuthenticated(false)
+    }
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, isAuthenticated, logout }}>
             {children}
         </UserContext.Provider>
     )

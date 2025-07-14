@@ -1,7 +1,8 @@
 // Importamos useState para gestionar estado en nuestro hook
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 // Función genérica de fetch para llamar a la API
 import { request } from '../../services/api'
+import { UserContext } from '../../context/UserContext'
 
 // Definimos y exportamos el hook custom useUsers
 export const useUsers = () => {
@@ -11,8 +12,10 @@ export const useUsers = () => {
     const [error, setError] = useState(null)
     // Estado para mensajes de éxito (registro o login correcto)
     const [isOk, setIsOk] = useState(null)
+    const { setUser } = useContext(UserContext)
 
     const login = async (credentials) => {
+
         try {
             // Enviamos POST a /auth con las credenciales
             //    credentials: { email, password }
@@ -25,11 +28,14 @@ export const useUsers = () => {
             // Si la API responde con ok: true
             if (response.ok) {
                 // Guardamos el usuario (o token) en data
-                setData(response.data)
+                setData(response)
+                console.log('response', response)
+                setUser(response.user)
                 // Guardamos mensaje de éxito
                 setIsOk(response.message)
                 // Limpiamos cualquier error previo
                 setError(null)
+                console.log('[useUsers] setUser con:', response.user)
             } else {
                 // En caso de fallo, limpiamos data e isOk
                 setData(null)

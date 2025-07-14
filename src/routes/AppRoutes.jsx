@@ -9,30 +9,16 @@ import { ClasesPage } from '../pages/admin/ClasesPage'
 import { ClasesCreatePage } from '../pages/admin/ClasesCreatePage'
 import { ClasesUpdatePage } from '../pages/admin/ClasesUpdatePage'
 import { UserProvider } from '../context/UserProvider'
+import { AllRoutes } from './AllRoutes'
 // El componente AppRoutes que agrupa todas las rutas de la app
 export const AppRoutes = () => {
+
+
     return (
         <UserProvider>
             {/*<Routes> actúa como switch y renderiza la primera <Route> cuyo path coincida*/}
-            <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path='login' element={<LoginPage />} />
-                <Route path="admin">
-                    <Route index element={<HomeAdminPage />} />
-                    <Route path="registro" element={<RegistroPage />} />
-                    <Route path="actualizar/:id" element={<UpdateUserPage />} />
-                    <Route path="clases">
-                        <Route index element={<ClasesPage />} />
-                        <Route path="createclase" element={<ClasesCreatePage />} />
+            <AllRoutes />
 
-                        {
-                            /*En el path de la ruta definimos el parámetro 
-                            (el nombre que le demos será el que reciba useParams) */
-                        }
-                        <Route path="updateclase/:title" element={<ClasesUpdatePage />} />
-                    </Route>
-                </Route>
-            </Routes>
         </UserProvider>
     )
 }
