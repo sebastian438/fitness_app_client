@@ -1,14 +1,17 @@
-import { ClassCard } from './ClassCard'
-import { useClasesNew } from '../hooks/useClasesNew'
+import { ClassCard } from './ClassCard' // Componente para renderizar cada clase individual
+import { useClasesNew } from '../hooks/useClasesNew' // Hook para manejar la obtención y estado de clases
 import { useEffect } from 'react'
 
 export const CardGrid = () => {
     const { isLoading, data, getClases } = useClasesNew();
 
+    // useEffect se ejecuta tras el primer render del componente
     useEffect(() => {
+        // Invocamos la función que trae todas las clases del backend
         getClases();
-    }, []);
+    }, []); // El array vacío [] asegura que solo se ejecute en el montaje inicial
 
+    // Si estamos esperando la respuesta, mostramos un spinner de carga
     if (isLoading) {
         return (
             <div className="text-center py-5">
@@ -19,6 +22,7 @@ export const CardGrid = () => {
         );
     }
 
+    // Si la petición falló (ok: false), mostramos un mensaje de error
     if (!data.ok) {
         return (
             <div className="alert alert-danger" role="alert">
@@ -27,6 +31,7 @@ export const CardGrid = () => {
         );
     }
 
+    // Si todo sale bien, iteramos sobre el array de clases
     return (
         <div className="row g-4">
             {data.datos.map(clase => (

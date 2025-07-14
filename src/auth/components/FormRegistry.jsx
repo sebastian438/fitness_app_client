@@ -1,8 +1,16 @@
+// Importamos el hook que maneja la lógica del formulario de registro
 import { useFormRegistro } from '../hooks/useFormRegistro';
 
 export const FormRegistry = () => {
+    // Desestructuramos del hook:
+    // formData: { name, password, role, email }
+    // handleChange: actualiza formData al escribir
+    // handleSubmit: envía formData al backend
+    // error: mensaje de error (si lo hay)
+    // isOk: mensaje de éxito (si lo hay)
     const { error, formData, handleChange, handleSubmit, isOk } = useFormRegistro();
 
+    // Renderizamos el formulario de registro
     return (
         <form
             onSubmit={handleSubmit}
@@ -69,12 +77,13 @@ export const FormRegistry = () => {
             </div>
 
             <button type="submit" className="btn btn-success w-100">Registrar</button>
-
+            {/* Si isOk existe, mensaje de éxito */}
             {isOk && (
                 <div className="alert alert-success mt-3" role="alert">
                     {isOk}
                 </div>
             )}
+            {/* Si hay error, lo mostramos abajo */}
             {error && (
                 <div className="alert alert-danger mt-3" role="alert">
                     {JSON.stringify(error)}

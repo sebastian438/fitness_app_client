@@ -1,4 +1,5 @@
-import { NavLink } from "react-router"
+import { NavLink } from "react-router" // Enlaces de navegación interna
+
 
 export const ClassCard = ({ clase }) => {
     return (

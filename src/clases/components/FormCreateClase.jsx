@@ -2,18 +2,21 @@ import { useState } from "react";
 import { useClasesNew } from "../hooks/useClasesNew";
 
 export const FormCreateClase = () => {
+    // Estado local para los campos del formulario
     const [formData, setFormData] = useState({
         title: '',
         descripcion: '',
         capacity: ''
     });
 
+    // Extraemos la función para crear y el resultado de la API
     const { createClase, data } = useClasesNew()
 
     const vaciarInputs = () => {
         setFormData({ title: '', descripcion: '', capacity: '' })
     }
 
+    //  Actualiza formData cuando el usuario escribe
     const handleChange = ({ target }) => {
 
         const name = target.name;
@@ -26,25 +29,28 @@ export const FormCreateClase = () => {
         setFormData(newData)
     }
 
+    // Envía los datos al backend y limpia inputs
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Evita recarga de página
 
-        createClase(formData)
-        vaciarInputs()
+        createClase(formData) // Llama al servicio para crear la clase
+        vaciarInputs() // Resetea formulario
     };
 
     return (
         <>
+            {/* 5. Si data.ok es true, mostramos mensaje de éxito */}
             {data?.ok && (
                 <div className="alert alert-success" role="alert">
                     {data.datos}
                 </div>
             )}
 
+            {/* 6. Si data.ok es false, mostramos errores de validación */}
             {data && !data.ok && data.datos && (
                 <div className="alert alert-danger" role="alert">
                     {Object.values(data.datos).map((err, i) => (
-                        <div key={i}>• {err.msg}</div>
+                        <div key={i}> {err.msg}</div>
                     ))}
                 </div>
             )}

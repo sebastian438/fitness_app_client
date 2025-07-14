@@ -17,25 +17,4 @@ export const request = async (path, options = {}) => {
     } catch (error) {
         return error;
     }
-
 };
-
-/* export const signup = data =>
-    request('/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify(data),
-    });
-
-export const login = data =>
-    request('/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(data),
-    });
-
-export const getClasses = token =>
-    request('/classes', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
- */

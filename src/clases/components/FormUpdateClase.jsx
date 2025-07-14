@@ -3,11 +3,15 @@ import { useClasesNew } from "../hooks/useClasesNew";
 import { useNavigate } from 'react-router';
 
 export const FormUpdateClase = ({ data: datos }) => {
+    // Hook de navegación para redirigir tras actualizar
     const navigate = useNavigate();
+    // Extraemos la función para editar y el resultado de la API
     const { editClase, data } = useClasesNew()
 
+    // Estado local inicializado con los datos de la clase a editar
     const [formData, setFormData] = useState(datos);
 
+    // Actualiza formData al cambiar cualquier input
     const handleChange = ({ target }) => {
 
         const name = target.name;
@@ -20,11 +24,12 @@ export const FormUpdateClase = ({ data: datos }) => {
         setFormData(newData)
     }
 
+    // Envía los datos actualizados y redirige si todo OK
     const handleSubmit = async e => {
         e.preventDefault();
-        const result = await editClase(formData);  
+        const result = await editClase(formData);
         if (result.ok) {
-            setTimeout(() => navigate('/admin/clases'), 700);
+            setTimeout(() => navigate('/admin/clases'), 700); // Vuelve al listado de clases
         }
     };
 
@@ -43,7 +48,7 @@ export const FormUpdateClase = ({ data: datos }) => {
             {data && !data.ok && (
                 <div className="alert alert-danger" role="alert">
                     {Object.values(data.datos).map((err, i) => (
-                        <div key={i}>• {err.msg}</div>
+                        <div key={i}> {err.msg}</div>
                     ))}
                 </div>
             )}

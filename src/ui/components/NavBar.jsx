@@ -3,11 +3,13 @@ import './navBar.css';
 
 export const NavBar = () => {
     return (
+        // Navbar de Bootstrap con colapso en pantallas pequeñas
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div className="container">
                 <NavLink to="/" className="navbar-brand">
                     FitnessApp
                 </NavLink>
+                {/* Botón hamburguesa que muestra/oculta el menú */}
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -19,6 +21,8 @@ export const NavBar = () => {
                 >
                     <span className="navbar-toggler-icon" />
                 </button>
+
+                {/* Ítems de navegación que se colapsan */}
                 <div className="collapse navbar-collapse" id="mainNavbar">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
@@ -51,7 +55,7 @@ export const NavBar = () => {
                                 Login
                             </NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/*<li className="nav-item">
                             <NavLink
                                 to="/actualizar/:id"
                                 className={({ isActive }) =>
@@ -60,7 +64,7 @@ export const NavBar = () => {
                             >
                                 Update user
                             </NavLink>
-                        </li>
+                        </li>*/}
                         <li className="nav-item">
                             <NavLink
                                 to="/admin/clases"

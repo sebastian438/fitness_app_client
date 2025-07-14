@@ -1,8 +1,16 @@
+// Importamos el hook que centraliza la lógica de estado y envío del formulario de login
 import { useFormLogin } from '../hooks/useFormLogin';
 
 export const FormLogin = () => {
+    // Desestructuramos del hook:
+    // formData: objeto con { email, password }
+    // handleChange: función para actualizar formData al escribir
+    // handleSubmit: función que envía los datos al backend
+    // error: mensaje de error (si lo hay)
+    // isOk: mensaje de éxito (si lo hay)
     const { formData, handleChange, handleSubmit, error, isOk } = useFormLogin();
 
+    // Renderizamos el formulario
     return (
         <form
             onSubmit={handleSubmit}
@@ -39,12 +47,13 @@ export const FormLogin = () => {
             </div>
 
             <button type="submit" className="btn btn-success w-100">Entrar</button>
-
+            {/* Si hay isOk (éxito), mostramos el mensaje */}
             {isOk && (
                 <div className="alert alert-success mt-3" role="alert">
                     {isOk}
                 </div>
             )}
+            {/* Si hay error, mostramos el mensaje */}
             {error && (
                 <div className="alert alert-danger mt-3" role="alert">
                     {error}

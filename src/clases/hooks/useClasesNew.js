@@ -2,21 +2,25 @@ import { useState } from 'react'
 import { request } from "../../services/api";
 
 export const useClasesNew = () => {
-
+    // Estado para la respuesta de la API
     const [data, setData] = useState(null);
+    // Estado para indicar si estamos cargando datos
     const [isLoading, setIsLoading] = useState(true)
 
+
+    // Función para obtener todas las clases
     const getClases = async () => {
-        setIsLoading(true)
+        setIsLoading(true) // Activamos el loading
 
         try {
-            const resultados = await request('/clases/allclases', {
-                method: 'GET'
+            const resultados = await request('/clases/allclases', { // Llamamos a la API
+                method: 'GET',
+                credentials: 'include'
             });
 
             if (resultados.ok) {
-                setData({ ok: true, datos: resultados.data })
-                setIsLoading(false)
+                setData({ ok: true, datos: resultados.data }) // Guardamos la respuesta en data
+                setIsLoading(false)  // Desactivamos el loading
             } else {
                 setData({ ok: false, datos: resultados.errores })
                 setIsLoading(false)
